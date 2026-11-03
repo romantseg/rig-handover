@@ -30,6 +30,5 @@ export type DigestNight = {
 // Reads runsDir/<night>.jsonl. Returns null when there is no such file, or when `night` isn't
 // YYYY-MM-DD (so it can't name a path outside runsDir): routes turn null into 404.
 // Throws only on real I/O errors other than a missing file.
-export function readNight(runsDir: string, night: string): DigestNight | null {
-  throw new Error('readNight: not implemented (#2)');
-}
+// readNight(runsDir: string, night: string): DigestNight | null; implemented in read.ts (#2).
+export { readNight } from './read.js';
