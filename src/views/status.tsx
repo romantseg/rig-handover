@@ -1,4 +1,9 @@
-import type { Status } from '../status.js';
+import type { NightCounts, Status } from '../status.js';
+
+function countsText(c: NightCounts): string {
+  const text = `ok ${c.ok} · retry ${c.retry} · fail ${c.fail}`;
+  return c.badLines > 0 ? `${text} · ${c.badLines} bad line${c.badLines === 1 ? '' : 's'}` : text;
+}
 
 export function StatusBoard({ status }: { status: Status }) {
   return (
@@ -19,8 +24,11 @@ export function StatusBoard({ status }: { status: Status }) {
         <p class="mute">nothing in runs/</p>
       ) : (
         <ul>
-          {status.nights.map((n) => (
-            <li>{n}</li>
+          {status.nights.map(({ night, counts }) => (
+            <li>
+              <a href={`/digest/${night}`}>{night}</a>{' '}
+              {counts ? countsText(counts) : '—'}
+            </li>
           ))}
         </ul>
       )}
